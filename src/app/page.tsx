@@ -7,6 +7,7 @@ import { PromptProvider } from "@/components/context/prompt-provider";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
+import { Shimmer } from "@/components/ai-elements/shimmer";
 
 export default async function Home() {
   const queryClient = getQueryClient();
@@ -36,8 +37,10 @@ export default async function Home() {
 
 export function Loading() {
   return (
-    <div className="flex justify-start py-4">
-      <p className="text-muted-foreground animate-pulse">Loading Messages</p>
+    <div className="flex justify-start p-4">
+      <Shimmer duration={1} className="text-lg font-light">
+        Loading Messages...
+      </Shimmer>
     </div>
   );
 }
