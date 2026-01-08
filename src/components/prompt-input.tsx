@@ -10,13 +10,34 @@ import {
 import { ArrowUpIcon } from "lucide-react";
 import { useContext } from "react";
 import { PromptContext } from "./context/prompt-provider";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useTRPC } from "@/trpc/client";
+import { toast } from "sonner";
+import { Spinner } from "./ui/spinner";
 
 interface Props {
   sendMessage: (message: { text: string }) => void;
 }
 
 export function PromptInput({ sendMessage }: Props) {
+  const trpc = useTRPC();
+  const queryClient = useQueryClient();
   const value = useContext(PromptContext);
+
+  const mutation = useMutation(
+    trpc.message.create.mutationOptions({
+      onSuccess: (data) => {
+        sendMessage({ text: data.content });
+        queryClient.invalidateQueries({
+          queryKey: trpc.message.getMany.queryKey(),
+        });
+      },
+      onError: () => {
+        toast.error("Failed to send prompt");
+      },
+    })
+  );
+
   return (
     <div className="grid w-full p-4">
       <InputGroup className="bg-white rounded-2xl shadow-md p-2 border border-neutral-300">
@@ -32,9 +53,10 @@ export function PromptInput({ sendMessage }: Props) {
             className="ml-auto"
             size="sm"
             variant="default"
+            onClick={() => mutation.mutate({ prompt: value?.prompt! })}
             disabled={Boolean(!value?.prompt)}
           >
-            <ArrowUpIcon />
+            {mutation.isPending ? <Spinner /> : <ArrowUpIcon />}
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
