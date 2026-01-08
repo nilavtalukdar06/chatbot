@@ -9,6 +9,9 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "AI Chatbot",
+  icons: {
+    icon: ["/logo.svg"],
+  },
 };
 
 export default function RootLayout({ children }: child) {
