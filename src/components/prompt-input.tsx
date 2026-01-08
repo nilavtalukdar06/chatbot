@@ -24,7 +24,12 @@ export function PromptInput() {
           onChange={(e) => value?.setPrompt(e.target.value)}
         />
         <InputGroupAddon align="block-end">
-          <InputGroupButton className="ml-auto" size="sm" variant="default">
+          <InputGroupButton
+            className="ml-auto"
+            size="sm"
+            variant="default"
+            disabled={Boolean(!value?.prompt)}
+          >
             <ArrowUpIcon />
           </InputGroupButton>
         </InputGroupAddon>
