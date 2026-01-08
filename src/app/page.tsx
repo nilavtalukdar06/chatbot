@@ -4,11 +4,12 @@ import { headers } from "next/headers";
 import { Navbar } from "@/components/navbar";
 import { MessageContainer } from "@/components/message-container";
 import { PromptProvider } from "@/components/context/prompt-provider";
-import { Message } from "@/generated/prisma/browser";
-import { caller } from "@/trpc/server";
+import { getQueryClient, trpc } from "@/trpc/server";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { Suspense } from "react";
 
 export default async function Home() {
-  let messages: Message[] | null = null;
+  const queryClient = getQueryClient();
   const session = await auth.api.getSession({
     headers: await headers(),
   });
@@ -16,16 +17,27 @@ export default async function Home() {
     redirect("/auth");
   }
   if (session) {
-    const result = await caller.message.getMany();
-    messages = result;
+    void queryClient.prefetchQuery(trpc.message.getMany.queryOptions());
   }
 
   return (
     <div className="max-w-3xl mx-auto w-full flex flex-col h-screen">
       <Navbar />
       <PromptProvider>
-        <MessageContainer messages={messages} />
+        <HydrationBoundary state={dehydrate(queryClient)}>
+          <Suspense fallback={<Loading />}>
+            <MessageContainer />
+          </Suspense>
+        </HydrationBoundary>
       </PromptProvider>
+    </div>
+  );
+}
+
+export function Loading() {
+  return (
+    <div className="flex justify-start py-4">
+      <p className="text-muted-foreground animate-pulse">Loading Messages</p>
     </div>
   );
 }
