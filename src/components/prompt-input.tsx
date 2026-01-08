@@ -11,7 +11,11 @@ import { ArrowUpIcon } from "lucide-react";
 import { useContext } from "react";
 import { PromptContext } from "./context/prompt-provider";
 
-export function PromptInput() {
+interface Props {
+  sendMessage: (message: { text: string }) => void;
+}
+
+export function PromptInput({ sendMessage }: Props) {
   const value = useContext(PromptContext);
   return (
     <div className="grid w-full p-4">

@@ -15,6 +15,7 @@ enum MessageType {
 enum Role {
   USER
   ASSISTANT
+  SYSTEM
 }
 
 model User {
