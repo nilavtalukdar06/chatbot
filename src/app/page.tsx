@@ -1,13 +1,19 @@
-"use client";
+import { auth } from "@/utils/auth";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { LogoutButton } from "@/components/auth/logout";
 
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+export default async function Home() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+  if (!session) {
+    redirect("/auth");
+  }
 
-export default function Home() {
-  const handleClick = () => toast.success("This button is clicked");
   return (
     <div className="p-4">
-      <Button onClick={handleClick}>Click Me</Button>
+      <LogoutButton />
     </div>
   );
 }
