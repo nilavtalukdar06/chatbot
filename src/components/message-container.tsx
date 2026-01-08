@@ -13,7 +13,7 @@ interface Props {
 export function MessageContainer({ messages: result }: Props) {
   const { messages, sendMessage } = useChat({
     id: "my-chat",
-    messages: result?.map((message) => dbMessageToUIMessage(message)),
+    messages: result?.map((message) => dbMessageToUIMessage(message)).reverse(),
   });
   return (
     <div className="flex flex-col flex-1 min-h-0">
