@@ -31,7 +31,12 @@ export function LogoutButton() {
   };
 
   return (
-    <Button variant="destructive" onClick={handleLogout} disabled={isLoading}>
+    <Button
+      variant="destructive"
+      onClick={handleLogout}
+      disabled={isLoading}
+      size="sm"
+    >
       Logout
       <LogOutIcon />
     </Button>
