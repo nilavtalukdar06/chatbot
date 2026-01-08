@@ -31,7 +31,7 @@ export function MessageContainer() {
                 switch (part.type) {
                   case "text":
                     return (
-                      <div className="space-y-4">
+                      <div className="space-y-4" key={`${message.role}-${i}`}>
                         {message.role === "assistant" && (
                           <div className="flex flex-col items-start justify-center gap-y-2">
                             <div className="flex justify-start items-center gap-x-2">
@@ -46,9 +46,7 @@ export function MessageContainer() {
                             </p>
                           </div>
                         )}
-                        <MessageResponse key={`${message.role}-${i}`}>
-                          {part.text}
-                        </MessageResponse>
+                        <MessageResponse>{part.text}</MessageResponse>
                       </div>
                     );
                 }
