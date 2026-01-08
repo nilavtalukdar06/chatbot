@@ -21,7 +21,7 @@ export function MessageContainer() {
   });
   return (
     <div className="flex flex-col flex-1 min-h-0">
-      <ScrollArea className="flex-1 flex flex-col gap-y-4">
+      <ScrollArea className="flex-1 flex flex-col gap-y-4 p-4 overflow-auto">
         {messages.map(({ role, parts }, index) => (
           <Message from={role} key={index}>
             <MessageContent>

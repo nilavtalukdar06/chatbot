@@ -21,16 +21,13 @@ interface Props {
 
 export function PromptInput({ sendMessage }: Props) {
   const trpc = useTRPC();
-  const queryClient = useQueryClient();
   const value = useContext(PromptContext);
 
   const mutation = useMutation(
     trpc.message.create.mutationOptions({
       onSuccess: (data) => {
         sendMessage({ text: data.content });
-        queryClient.invalidateQueries({
-          queryKey: trpc.message.getMany.queryKey(),
-        });
+        value?.setPrompt("");
       },
       onError: () => {
         toast.error("Failed to send prompt");
