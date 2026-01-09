@@ -55,7 +55,10 @@ export function MessageContainer() {
           </Message>
         ))}
       </ScrollArea>
-      <PromptInput sendMessage={sendMessage} />
+      <div className="relative px-4 py-3">
+        <div className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-b from-transparent via-background/60 to-background" />
+        <PromptInput sendMessage={sendMessage} />
+      </div>
     </div>
   );
 }

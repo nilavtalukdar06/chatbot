@@ -10,7 +10,7 @@ import {
 import { ArrowUpIcon } from "lucide-react";
 import { useContext } from "react";
 import { PromptContext } from "./context/prompt-provider";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { toast } from "sonner";
 import { Spinner } from "./ui/spinner";
@@ -36,7 +36,7 @@ export function PromptInput({ sendMessage }: Props) {
   );
 
   return (
-    <div className="grid w-full p-4">
+    <div className="grid w-full">
       <InputGroup className="bg-white rounded-2xl shadow-md p-2 border border-neutral-300">
         <TextareaAutosize
           data-slot="input-group-control"
