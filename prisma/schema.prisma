@@ -30,6 +30,8 @@ model User {
   accounts      Account[]
   messages      Message[]
 
+  status String @default("free_user")
+
   @@unique([email])
   @@map("user")
 }

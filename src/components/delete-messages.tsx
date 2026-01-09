@@ -29,6 +29,7 @@ export function DeleteMessages() {
         queryClient.invalidateQueries({
           queryKey: trpc.message.getMany.queryKey(),
         });
+        setIsOpen(false);
       },
       onError: (error) => {
         toast.error(error.message);
