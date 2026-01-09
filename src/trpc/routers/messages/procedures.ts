@@ -24,11 +24,11 @@ export const messagesRouter = createTRPCRouter({
     )
     .mutation(async (opts) => {
       try {
-        await consumeCredits(opts.ctx.user.id);
+        await consumeCredits(opts.ctx.user.id, opts.ctx.user.status);
       } catch (error) {
         throw new TRPCError({
           code: "PAYMENT_REQUIRED",
-          message: "Prompt limited exceeded for today",
+          message: "Prompt limit exceeded for today",
         });
       }
       const result = await prisma.message.create({
