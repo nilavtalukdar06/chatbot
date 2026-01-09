@@ -31,8 +31,8 @@ export function PromptInput({ sendMessage, status }: Props) {
         sendMessage({ text: data.content });
         value?.setPrompt("");
       },
-      onError: () => {
-        toast.error("Failed to send prompt");
+      onError: (error) => {
+        toast.error(error.message || "Some Error Occurred");
       },
     })
   );
