@@ -48,17 +48,20 @@ export const auth = betterAuth({
         webhooks({
           secret: process.env.POLAR_WEBHOOK_SECRET!,
           onOrderPaid: async (payload) => {
-            const userEmail = payload.data.customer.email;
+            const externalId = payload.data.customer.externalId;
+            if (!externalId) {
+              return;
+            }
             try {
               await prisma.$transaction(async (tx) => {
                 await tx.user.findUniqueOrThrow({
                   where: {
-                    email: userEmail,
+                    id: externalId,
                   },
                 });
                 await tx.user.update({
                   where: {
-                    email: userEmail,
+                    id: externalId,
                   },
                   data: {
                     status: "pro_user",
@@ -71,17 +74,20 @@ export const auth = betterAuth({
             }
           },
           onSubscriptionRevoked: async (payload) => {
-            const userEmail = payload.data.customer.email;
+            const externalId = payload.data.customer.externalId;
+            if (!externalId) {
+              return;
+            }
             try {
               await prisma.$transaction(async (tx) => {
                 await tx.user.findUniqueOrThrow({
                   where: {
-                    email: userEmail,
+                    id: externalId,
                   },
                 });
                 await tx.user.update({
                   where: {
-                    email: userEmail,
+                    id: externalId,
                   },
                   data: {
                     status: "free_user",
