@@ -1,5 +1,7 @@
 import prisma from "@/lib/prisma";
+import { consumeCredits } from "@/lib/usage";
 import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
+import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
 export const messagesRouter = createTRPCRouter({
@@ -21,6 +23,14 @@ export const messagesRouter = createTRPCRouter({
       })
     )
     .mutation(async (opts) => {
+      try {
+        await consumeCredits(opts.ctx.user.id);
+      } catch (error) {
+        throw new TRPCError({
+          code: "PAYMENT_REQUIRED",
+          message: "Prompt limited exceeded for today",
+        });
+      }
       const result = await prisma.message.create({
         data: {
           type: "RESULT",
