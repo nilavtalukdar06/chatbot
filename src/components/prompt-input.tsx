@@ -53,7 +53,11 @@ export function PromptInput({ sendMessage, status }: Props) {
             size="sm"
             variant="default"
             onClick={() => mutation.mutate({ prompt: value?.prompt! })}
-            disabled={Boolean(!value?.prompt) || status === "streaming"}
+            disabled={
+              Boolean(!value?.prompt) ||
+              status === "streaming" ||
+              status === "submitted"
+            }
           >
             {mutation.isPending ? <Spinner /> : <ArrowUpIcon />}
           </InputGroupButton>

@@ -73,13 +73,26 @@ export function MessageContainer() {
               </Message>
             ))
           )}
-          {status === "streaming" && (
+          {status === "submitted" && (
             <div className="flex flex-col items-start justify-center gap-y-2">
               <div className="flex justify-start items-center gap-x-2">
                 <Claude.Color size={18} />
                 <Claude.Text size={14} />
               </div>
-              <Shimmer className="font-light">Thinking</Shimmer>
+              <Shimmer duration={1} className="font-light text-sm">
+                Loading...
+              </Shimmer>
+            </div>
+          )}
+          {status === "error" && (
+            <div className="flex flex-col items-start justify-center gap-y-2">
+              <div className="flex justify-start items-center gap-x-2">
+                <Claude.Color size={18} />
+                <Claude.Text size={14} />
+              </div>
+              <p className="text-sm text-red-500 font-light">
+                Failed to fullfill your request, please try again later.
+              </p>
             </div>
           )}
         </ConversationContent>
