@@ -20,14 +20,20 @@ import {
 } from "@/components/ai-elements/conversation";
 import { MessageSquare } from "lucide-react";
 import { Shimmer } from "./ai-elements/shimmer";
+import { useEffect } from "react";
 
 export function MessageContainer() {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.message.getMany.queryOptions());
-  const { messages, sendMessage, status } = useChat<ExtendedUIMessage>({
-    id: "my-chat",
-    messages: data?.map((message) => dbMessageToUIMessage(message)).reverse(),
-  });
+  const { messages, sendMessage, status, setMessages } =
+    useChat<ExtendedUIMessage>({
+      id: "my-chat",
+    });
+
+  useEffect(() => {
+    setMessages(data.map((message) => dbMessageToUIMessage(message)).reverse());
+  }, [data, setMessages]);
+
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <Conversation className="flex-1 flex flex-col min-h-0">
