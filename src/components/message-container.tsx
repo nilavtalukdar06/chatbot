@@ -97,7 +97,7 @@ export function MessageContainer() {
                 <Claude.Text size={14} />
               </div>
               <p className="text-sm text-red-500 font-light">
-                Failed to fullfill your request, please try again later.
+                Failed to fulfill your request, please try again later.
               </p>
             </div>
           )}
