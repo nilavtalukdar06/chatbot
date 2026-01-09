@@ -91,6 +91,9 @@ importers:
       pg:
         specifier: ^8.16.3
         version: 8.16.3
+      rate-limiter-flexible:
+        specifier: ^9.0.1
+        version: 9.0.1
       react:
         specifier: 19.2.3
         version: 19.2.3
@@ -5584,6 +5587,12 @@ packages:
       }
     engines: { node: ">=18" }
 
+  rate-limiter-flexible@9.0.1:
+    resolution:
+      {
+        integrity: sha512-sO+QdoGPCxroi4VkO2FIVjfUGuexhRkBc9ROHqu5eVEEz+oPHzQqvCc25ajFfMUBosbNGb6qpNa8xmxH9YNZsg==,
+      }
+
   rc-collapse@4.0.0:
     resolution:
       {
@@ -10647,6 +10656,8 @@ snapshots:
       decode-uri-component: 0.4.1
       filter-obj: 5.1.0
       split-on-first: 3.0.0
+
+  rate-limiter-flexible@9.0.1: {}
 
   rc-collapse@4.0.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
