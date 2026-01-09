@@ -19,15 +19,15 @@ import {
   ConversationScrollButton,
 } from "@/components/ai-elements/conversation";
 import { MessageSquare } from "lucide-react";
+import { Shimmer } from "./ai-elements/shimmer";
 
 export function MessageContainer() {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.message.getMany.queryOptions());
-  const { messages, sendMessage } = useChat<ExtendedUIMessage>({
+  const { messages, sendMessage, status } = useChat<ExtendedUIMessage>({
     id: "my-chat",
     messages: data?.map((message) => dbMessageToUIMessage(message)).reverse(),
   });
-
   return (
     <div className="flex flex-col flex-1 min-h-0">
       <Conversation className="flex-1 flex flex-col min-h-0">
@@ -41,7 +41,7 @@ export function MessageContainer() {
           ) : (
             messages.map((message, index) => (
               <Message from={message.role} key={index}>
-                <MessageContent className="">
+                <MessageContent>
                   {message.parts.map((part, i) => {
                     switch (part.type) {
                       case "text":
@@ -73,12 +73,21 @@ export function MessageContainer() {
               </Message>
             ))
           )}
+          {status === "streaming" && (
+            <div className="flex flex-col items-start justify-center gap-y-2">
+              <div className="flex justify-start items-center gap-x-2">
+                <Claude.Color size={18} />
+                <Claude.Text size={14} />
+              </div>
+              <Shimmer className="font-light">Thinking</Shimmer>
+            </div>
+          )}
         </ConversationContent>
         <ConversationScrollButton />
       </Conversation>
       <div className="relative px-4 py-3">
         <div className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-linear-to-b from-transparent via-background/60 to-background" />
-        <PromptInput sendMessage={sendMessage} />
+        <PromptInput sendMessage={sendMessage} status={status} />
       </div>
     </div>
   );

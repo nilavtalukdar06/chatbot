@@ -14,12 +14,14 @@ import { useMutation } from "@tanstack/react-query";
 import { useTRPC } from "@/trpc/client";
 import { toast } from "sonner";
 import { Spinner } from "./ui/spinner";
+import type { ChatStatus } from "ai";
 
 interface Props {
   sendMessage: (message: { text: string }) => void;
+  status: ChatStatus;
 }
 
-export function PromptInput({ sendMessage }: Props) {
+export function PromptInput({ sendMessage, status }: Props) {
   const trpc = useTRPC();
   const value = useContext(PromptContext);
 
@@ -51,7 +53,7 @@ export function PromptInput({ sendMessage }: Props) {
             size="sm"
             variant="default"
             onClick={() => mutation.mutate({ prompt: value?.prompt! })}
-            disabled={Boolean(!value?.prompt)}
+            disabled={Boolean(!value?.prompt) || status === "streaming"}
           >
             {mutation.isPending ? <Spinner /> : <ArrowUpIcon />}
           </InputGroupButton>
