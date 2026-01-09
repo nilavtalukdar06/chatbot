@@ -10,7 +10,7 @@ import {
   MessageContent,
   MessageResponse,
 } from "@/components/ai-elements/message";
-import { Claude } from "@lobehub/icons";
+import { Grok } from "@lobehub/icons";
 import { format } from "date-fns";
 import {
   Conversation,
@@ -59,8 +59,8 @@ export function MessageContainer() {
                             {message.role === "assistant" && (
                               <div className="flex flex-col items-start justify-center gap-y-2">
                                 <div className="flex justify-start items-center gap-x-2">
-                                  <Claude.Color size={18} />
-                                  <Claude.Text size={14} />
+                                  <Grok size={18} />
+                                  <Grok.Text size={14} />
                                 </div>
                                 <p className="text-muted-foreground text-xs font-light">
                                   {format(
@@ -82,8 +82,8 @@ export function MessageContainer() {
           {status === "submitted" && (
             <div className="flex flex-col items-start justify-center gap-y-2">
               <div className="flex justify-start items-center gap-x-2">
-                <Claude.Color size={18} />
-                <Claude.Text size={14} />
+                <Grok size={18} />
+                <Grok.Text size={14} />
               </div>
               <Shimmer duration={1} className="font-light text-sm">
                 Loading...
@@ -93,8 +93,8 @@ export function MessageContainer() {
           {status === "error" && (
             <div className="flex flex-col items-start justify-center gap-y-2">
               <div className="flex justify-start items-center gap-x-2">
-                <Claude.Color size={18} />
-                <Claude.Text size={14} />
+                <Grok size={18} />
+                <Grok.Text size={14} />
               </div>
               <p className="text-sm text-red-500 font-light">
                 Failed to fulfill your request, please try again later.
