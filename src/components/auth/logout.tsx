@@ -6,6 +6,7 @@ import { authClient } from "@/utils/auth-client";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { Spinner } from "../ui/spinner";
 
 export function LogoutButton() {
   const router = useRouter();
@@ -29,7 +30,6 @@ export function LogoutButton() {
       },
     });
   };
-
   return (
     <Button
       variant="destructive"
@@ -37,8 +37,8 @@ export function LogoutButton() {
       disabled={isLoading}
       size="sm"
     >
-      Logout
-      <LogOutIcon />
+      {isLoading ? "Loading..." : "Logout"}
+      {isLoading ? <Spinner /> : <LogOutIcon />}
     </Button>
   );
 }
