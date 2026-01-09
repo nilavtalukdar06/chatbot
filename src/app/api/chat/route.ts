@@ -1,5 +1,5 @@
 import { streamText, UIMessage, convertToModelMessages } from "ai";
-import { openai } from "@ai-sdk/openai";
+import { xai } from "@ai-sdk/xai";
 import { type NextRequest, NextResponse } from "next/server";
 import { auth } from "@/utils/auth";
 import { headers } from "next/headers";
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     }
     const { messages }: { messages: UIMessage[] } = await request.json();
     const result = streamText({
-      model: openai("gpt-5-nano"),
+      model: xai("grok-3-mini"),
       messages: await convertToModelMessages(messages),
       onFinish: async ({ text }) => {
         await prisma.message.create({

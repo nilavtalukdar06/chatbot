@@ -11,8 +11,8 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^3.0.7",
     "@ai-sdk/react": "^3.0.23",
+    "@ai-sdk/xai": "^3.0.13",
     "@lobehub/icons": "^4.0.2",
     "@lobehub/ui": "^4.12.2",
     "@polar-sh/better-auth": "^1.6.3",

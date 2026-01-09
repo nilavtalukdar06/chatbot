@@ -7,12 +7,12 @@ settings:
 importers:
   .:
     dependencies:
-      "@ai-sdk/openai":
-        specifier: ^3.0.7
-        version: 3.0.7(zod@4.3.5)
       "@ai-sdk/react":
         specifier: ^3.0.23
         version: 3.0.23(react@19.2.3)(zod@4.3.5)
+      "@ai-sdk/xai":
+        specifier: ^3.0.13
+        version: 3.0.13(zod@4.3.5)
       "@lobehub/icons":
         specifier: ^4.0.2
         version: 4.0.2(@lobehub/ui@4.12.2)(@types/react@19.2.7)(antd@6.1.4(date-fns@4.1.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3))(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -178,10 +178,10 @@ packages:
     peerDependencies:
       zod: ^3.25.76 || ^4.1.8
 
-  "@ai-sdk/openai@3.0.7":
+  "@ai-sdk/openai-compatible@2.0.4":
     resolution:
       {
-        integrity: sha512-CBoYn1U59Lop8yBL9KuVjHCKc/B06q9Qo0SasRwHoyMEq+X4I8LQZu3a8Ck1jwwcZTTxfyiExB70LtIRSynBDA==,
+        integrity: sha512-kzsXyybJKM3wtUtGZkNbvmpDwqpsvg/hTjlPZe3s/bCx3enVdAlRtXD853nnj6mZjteNCDLoR2OgVLuDpyRN5Q==,
       }
     engines: { node: ">=18" }
     peerDependencies:
@@ -211,6 +211,15 @@ packages:
     engines: { node: ">=18" }
     peerDependencies:
       react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
+
+  "@ai-sdk/xai@3.0.13":
+    resolution:
+      {
+        integrity: sha512-7bV9iXWXwmVIDv5hhl82VScc7owGcvs0L63nffHQxIGyuNbVteHuDLchTxNqJsYLEMUf0NsnvDP8S5BSRGNC+w==,
+      }
+    engines: { node: ">=18" }
+    peerDependencies:
+      zod: ^3.25.76 || ^4.1.8
 
   "@alloc/quick-lru@5.2.0":
     resolution:
@@ -7344,7 +7353,7 @@ snapshots:
       "@vercel/oidc": 3.1.0
       zod: 4.3.5
 
-  "@ai-sdk/openai@3.0.7(zod@4.3.5)":
+  "@ai-sdk/openai-compatible@2.0.4(zod@4.3.5)":
     dependencies:
       "@ai-sdk/provider": 3.0.2
       "@ai-sdk/provider-utils": 4.0.4(zod@4.3.5)
@@ -7370,6 +7379,13 @@ snapshots:
       throttleit: 2.1.0
     transitivePeerDependencies:
       - zod
+
+  "@ai-sdk/xai@3.0.13(zod@4.3.5)":
+    dependencies:
+      "@ai-sdk/openai-compatible": 2.0.4(zod@4.3.5)
+      "@ai-sdk/provider": 3.0.2
+      "@ai-sdk/provider-utils": 4.0.4(zod@4.3.5)
+      zod: 4.3.5
 
   "@alloc/quick-lru@5.2.0": {}
 
