@@ -1,11 +1,11 @@
 # Chatbot Application
 
-A modern, full-stack AI chatbot application built with Next.js, featuring real-time streaming responses, user authentication, subscription management, and message persistence. This application provides a seamless chat experience with OpenAI's GPT models, complete with rate limiting, user management, and a beautiful UI.
+A modern, full-stack AI chatbot application built with Next.js, featuring real-time streaming responses, user authentication, subscription management, and message persistence. This application provides a seamless chat experience with xAI Grok models, complete with rate limiting, user management, and a beautiful UI.
 
 ## 🚀 Features
 
 ### Core Features
-- **Real-time AI Chat**: Stream responses from OpenAI's GPT-5-nano model using the Vercel AI SDK
+- **Real-time AI Chat**: Stream responses from xAI's Grok-3-mini model using the Vercel AI SDK
 - **User Authentication**: Secure authentication system with Better Auth supporting GitHub OAuth
 - **Message Persistence**: All conversations are saved to PostgreSQL database for history
 - **Rate Limiting**: Usage tracking and rate limiting based on user subscription tier
@@ -57,7 +57,7 @@ A modern, full-stack AI chatbot application built with Next.js, featuring real-t
 - **tRPC 11.8.1** - End-to-end typesafe APIs
 - **Better Auth 1.4.10** - Authentication framework
 - **Vercel AI SDK 6.0.23** - AI integration
-  - `@ai-sdk/openai` - OpenAI integration
+  - `@ai-sdk/xai` - xAI integration
   - `@ai-sdk/react` - React hooks for AI
 - **Rate Limiter Flexible** - Rate limiting with Prisma storage
 - **SuperJSON** - Enhanced JSON serialization
@@ -140,7 +140,7 @@ sequenceDiagram
     participant Auth as Better Auth
     participant DB as PostgreSQL
     participant RateLimiter as Rate Limiter
-    participant OpenAI as OpenAI API
+    participant xAI as xAI API
     participant Polar as Polar.sh
 
     User->>UI: Types message & submits
@@ -170,12 +170,12 @@ sequenceDiagram
     UI->>API: POST /api/chat (stream)
     API->>Auth: Verify session
     Auth-->>API: User authenticated
-    API->>OpenAI: streamText() with messages
-    OpenAI-->>API: Stream tokens
+    API->>xAI: streamText() with messages
+    xAI-->>API: Stream tokens
     API-->>UI: Stream response chunks
     UI->>User: Display streaming text
     
-    OpenAI-->>API: Stream complete
+    xAI-->>API: Stream complete
     API->>DB: Save ASSISTANT message
     DB-->>API: Message saved
     API-->>UI: Stream complete
@@ -240,7 +240,7 @@ sequenceDiagram
 - Node.js 18+ 
 - pnpm (or npm/yarn)
 - PostgreSQL database
-- OpenAI API key
+- xAI API key
 - GitHub OAuth app (for authentication)
 - Polar.sh account (for subscriptions)
 
@@ -271,8 +271,8 @@ sequenceDiagram
    GITHUB_CLIENT_ID="your-github-client-id"
    GITHUB_CLIENT_SECRET="your-github-client-secret"
    
-   # OpenAI
-   OPENAI_API_KEY="your-openai-api-key"
+   # xAI
+   XAI_API_KEY="your-xai-api-key"
    
    # Polar.sh
    POLAR_ACCESS_TOKEN="your-polar-access-token"
@@ -305,7 +305,7 @@ sequenceDiagram
 | `BETTER_AUTH_URL` | Base URL of your application | Yes |
 | `GITHUB_CLIENT_ID` | GitHub OAuth client ID | Yes |
 | `GITHUB_CLIENT_SECRET` | GitHub OAuth client secret | Yes |
-| `OPENAI_API_KEY` | OpenAI API key | Yes |
+| `XAI_API_KEY` | xAI API key | Yes |
 | `POLAR_ACCESS_TOKEN` | Polar.sh API access token | Yes |
 | `POLAR_WEBHOOK_SECRET` | Polar.sh webhook secret | Yes |
 
